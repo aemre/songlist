@@ -8,7 +8,7 @@
 
 import React from 'react';
 
-import { Provider as PaperProvider,DefaultTheme } from 'react-native-paper';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 
 import {
   SafeAreaView,
@@ -21,10 +21,15 @@ import {
 } from 'react-native';
 
 import { SoundListScreen } from './src/screen/SoundListScreen';
+import { Provider as ReduxProvider } from 'react-redux'
+import createStore  from './src/reduxstore/store/createStore'
 
-
+const store = createStore();
 
 const App: () => Node = () => {
+
+
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const darkTheme = {
@@ -36,7 +41,7 @@ const App: () => Node = () => {
       accent: "#FAFAFA"
     },
   };
-  
+
   const lightTheme = {
     ...DefaultTheme,
     roundness: 2,
@@ -48,9 +53,11 @@ const App: () => Node = () => {
   };
 
   return (
-    <PaperProvider theme={isDarkMode ? darkTheme : lightTheme}>
-    <SoundListScreen/>
-    </PaperProvider>
+    <ReduxProvider store={store}>
+      <PaperProvider theme={isDarkMode ? darkTheme : lightTheme}>
+        <SoundListScreen />
+      </PaperProvider>
+    </ReduxProvider>
   );
 };
 
