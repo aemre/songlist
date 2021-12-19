@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -8,10 +8,13 @@ import {
     useColorScheme,
     View,
 } from 'react-native';
+import { Action } from '../reduxstore/modules/song'
+import { connect } from 'react-redux';
 
-
-const SoundListScreen = () => {
-
+const SoundListScreen = ({toggleTodo}) => {
+    useEffect(() => {
+        toggleTodo();
+    }, []);
     return (
         <View >
             <Text>Hello</Text>
@@ -19,4 +22,10 @@ const SoundListScreen = () => {
     );
 };
 
-export { SoundListScreen };
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+      toggleTodo: () => dispatch(Action.init())
+    }
+  }
+
+export default connect(null,mapDispatchToProps)(SoundListScreen);

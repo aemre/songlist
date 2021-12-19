@@ -7,31 +7,33 @@ import produce from 'immer'
 const { Types, Creators: Action } = createActions(
     {
         init: null,
-        initSuccess: ['options'],
-        initFailure: ['error']
+        songListSuccess: ['songList'],
+        songListFailure: ['error']
     },
-    { prefix: '@APP/' }
+    { prefix: '@SONGS/' }
 )
 export { Types, Action }
 
 export const INITIAL_STATE = {
-    isInıt: false,
+    songList: null,
     error: null,
+    loading: false
 }
 
 export default createReducer(INITIAL_STATE, {
     [Types.INIT]: (state) =>
         produce(state, (draft) => {
-            draft.init = true;
+            draft.loading = true;
         }),
-    [Types.INIT_FAILURE]: (state,error) =>
+    [Types.SONG_LIST_FAILURE]: (state, error) =>
         produce(state, (draft) => {
-            draft.isInıt = false,
+            draft.loading = false,
                 draft.error = error;
         }),
-    [Types.INIT_SUCCESS]: (state) =>
+    [Types.SONG_LIST_SUCCESS]: (state,  list ) =>
         produce(state, (draft) => {
-            draft.isInıt = true,
-                draft.error = false;
+            console.log('list',list)
+            draft.loading = false,
+                draft.songList = list;
         }),
 })

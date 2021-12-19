@@ -5,6 +5,7 @@ import { all, call, spawn } from 'redux-saga/effects';
  */
 import watchApp from './app';
 import startChannel from './network';
+import watchSong from './song';
 
 /**
  * RootSagas
@@ -12,7 +13,8 @@ import startChannel from './network';
 export default function* root() {
   const sagas = [
     watchApp,
-    startChannel
+    startChannel,
+    watchSong,
   ];
 
   yield all(

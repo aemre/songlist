@@ -20,7 +20,7 @@ import {
   View,
 } from 'react-native';
 
-import { SoundListScreen } from './src/screen/SoundListScreen';
+import  SoundListScreen  from './src/screen/SoundListScreen';
 import { Provider as ReduxProvider } from 'react-redux'
 import createStore  from './src/reduxstore/store/createStore'
 
