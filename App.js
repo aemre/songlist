@@ -19,13 +19,15 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 import  SoundListScreen  from './src/screen/SoundListScreen';
 import { Provider as ReduxProvider } from 'react-redux'
 import createStore  from './src/reduxstore/store/createStore'
 
 const store = createStore();
-
+Icon.loadFont();
 const App: () => Node = () => {
 
 
