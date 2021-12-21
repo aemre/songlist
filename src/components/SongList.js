@@ -1,28 +1,37 @@
-import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import React, { useCallback } from 'react';
+import { Animated, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import SongCard from './SongCard';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const SongList = ({ DATA }) => {
-    console.log('DATA', DATA)
-    const Item = ({ title, artist, image_url }) => (
+    const Item = ({ item, y, index }) => (
         <View style={styles.item}>
-            <SongCard title={title} artist={artist} image_url={image_url} />
-
+            <SongCard title={item.title} artist={item.artist} image_url={item.image_url} y={y} index={index} release_year={item.release_year} />
         </View>
     );
 
-    const renderItem = ({ item }) => (
-        <Item title={item.title} artist={item.artist} image_url={item.image_url} />
-    );
+    const renderItem = useCallback(
+        ({ item, index }) => {
+            return (
+                <Item item={item} y={y} index={index} />
+            )
+        }
+    )
 
+    const y = new Animated.Value(0);
+    const onScroll = Animated.event([{ nativeEvent: { contentOffset: { y } } }], {
+        useNativeDriver: true,
+    });
     return (
         <View style={styles.container}>
-            <FlatList
-                numColumns={1}
+            <AnimatedFlatList
+                scrollEventThrottle={16}
+                bounces={false}
                 data={DATA}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                {...{ onScroll }}
             />
         </View>
     );
@@ -30,10 +39,9 @@ const SongList = ({ DATA }) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 400
+        marginBottom: 100
     },
     item: {
-        padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
     },

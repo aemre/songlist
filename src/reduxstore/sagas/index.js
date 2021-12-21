@@ -5,7 +5,8 @@ import { all, call, spawn } from 'redux-saga/effects';
  */
 import watchApp from './app';
 import startChannel from './network';
-import watchSong from './song';
+import { watchSong, watchInput, watchReset } from './song';
+
 
 /**
  * RootSagas
@@ -15,6 +16,8 @@ export default function* root() {
     watchApp,
     startChannel,
     watchSong,
+    watchInput,
+    watchReset,
   ];
 
   yield all(

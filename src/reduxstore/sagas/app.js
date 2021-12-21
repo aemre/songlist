@@ -7,11 +7,11 @@ import { Actions, Types } from '../modules/app';
  */
 function* init() {
   try {
-        yield put(Actions.initSuccess("response"));
+    yield put(Actions.initSuccess("response"));
   } catch (e) {
     yield put(Actions.initFailure(`Error: ${e}`));
   }
-  
+
 }
 
 /**

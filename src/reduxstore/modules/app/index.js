@@ -24,7 +24,7 @@ export default createReducer(INITIAL_STATE, {
         produce(state, (draft) => {
             draft.init = true;
         }),
-    [Types.INIT_FAILURE]: (state,error) =>
+    [Types.INIT_FAILURE]: (state, error) =>
         produce(state, (draft) => {
             draft.isInıt = false,
                 draft.error = error;
